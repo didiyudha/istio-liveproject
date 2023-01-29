@@ -95,4 +95,59 @@ Checked 3 Istio Deployments
 ✔ Istio is installed and verified successfully
 ```
 
+## Create online-boutique namespace
 
+```
+kubectl create namespace online-boutique
+```
+
+## Label the namespace
+```
+kubectl label ns istio-injection=enabled
+```
+
+```
+kubectl get ns -L istio-injection
+```
+
+```
+NAME              STATUS   AGE     ISTIO-INJECTION
+default           Active   7h55m   
+istio-system      Active   7h51m   
+kube-node-lease   Active   7h55m   
+kube-public       Active   7h55m   
+kube-system       Active   7h55m   
+online-boutique   Active   32m     enabled
+```
+
+## Install online boutique microservices
+
+```
+curl -L https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/main/release/kubernetes-manifests.yaml -o online-boutique-manifests.yaml
+```
+
+```
+kubectl -n online-boutique apply -f online-boutique-manifests.yaml
+```
+
+## Verify all pods are running
+
+```
+kubectl get pods -n online-boutique
+```
+
+```
+NAME                                     READY   STATUS    RESTARTS   AGE
+adservice-8587b48c5f-kwmrm               2/2     Running   0          33m
+cartservice-5c65c67f5d-b6k46             2/2     Running   0          33m
+checkoutservice-54c9f7f49f-7phgt         2/2     Running   0          33m
+currencyservice-5877b8dbcc-jbqvf         2/2     Running   0          33m
+emailservice-5c5448b7bc-4ckmg            2/2     Running   0          33m
+frontend-67f6fdc769-vv4sq                2/2     Running   0          33m
+loadgenerator-555c7c5c44-d68q5           2/2     Running   0          33m
+paymentservice-7bc7f76c67-j5c7x          2/2     Running   0          33m
+productcatalogservice-67fff7c687-x9kgm   2/2     Running   0          33m
+recommendationservice-b49f757f-hsqjk     2/2     Running   0          33m
+redis-cart-58648d854-85gtp               2/2     Running   0          33m
+shippingservice-76b9bc7465-464zf         2/2     Running   0          33m
+```
