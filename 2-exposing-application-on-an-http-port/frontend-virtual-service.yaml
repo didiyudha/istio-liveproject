@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: frontend-virtual-service
+  namespace: online-boutique
+spec:
+  hosts:
+  - "online-boutique.com"
+  gateways:
+  - frontend-gateway
+  http:
+  - route:
+    - destination:
+        host: frontend.online-boutique.svc.cluster.local
+        port:
+          number: 80
