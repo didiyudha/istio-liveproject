@@ -272,7 +272,7 @@ spec:
     - operation:
         paths: ["/cart"]
         ports:
-          - "443"
+          - "8443"
 ```
 
 *HTTP*
